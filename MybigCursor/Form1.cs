@@ -174,8 +174,10 @@ namespace MybigCursor
                 ? $"SHAKE DETECTED | Avg speed: {avgSpeed:F0}"
                 : $"Normal | Avg speed: {avgSpeed:F0}";
 
+            float intensity = (float)Math.Min(1.0, avgSpeed / 15000.0);
+
             if (_shakeActive)
-                _overlay.ShowAtCursor(currentPos);
+                _overlay.ShowAtCursor(currentPos, intensity);
             else
                 _overlay.HideOverlay();
 
