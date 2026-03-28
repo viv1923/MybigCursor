@@ -107,7 +107,8 @@ namespace MybigCursor
 
         private readonly OverlayForm _overlay;
 
-        private const double ShakeThreshold = 9000.0;
+        //private const double ShakeThreshold = 9000.0;
+        private AppSettings _settings = new AppSettings();
         private const int SpeedWindowMs = 150;
         private const int ShakeHoldMs = 400;
 
@@ -159,7 +160,7 @@ namespace MybigCursor
                 avgSpeed = total / _recentSpeeds.Count;
             }
 
-            if (avgSpeed > ShakeThreshold)
+            if (avgSpeed > _settings.ShakeThreshold)
             {
                 _shakeActive = true;
                 _shakeUntil = now.AddMilliseconds(ShakeHoldMs);
@@ -184,11 +185,30 @@ namespace MybigCursor
             _lastMousePos = currentPos;
             _lastTime = now;
         }
-
+        private void ApplySettings()
+        {
+            if (_settings.UseCustomImage && !string.IsNullOrEmpty(_settings.EquippedImagePath))
+            {
+                _overlay.SetOverlayImage(_settings.EquippedImagePath);
+            }
+            else
+            {
+                _overlay.ClearOverlayImage();
+            }
+        }
         protected override void OnFormClosing(FormClosingEventArgs e)
         {
             _overlay.Close();
             base.OnFormClosing(e);
+        }
+
+        private void btnSettings_Click(object sender, EventArgs e)
+        {
+            using (SettingsForm frm = new SettingsForm(_settings))
+            {
+                frm.ShowDialog();
+                ApplySettings();
+            }
         }
     }
 }

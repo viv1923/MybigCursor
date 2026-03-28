@@ -19,6 +19,8 @@ namespace MybigCursor
         private PointF _targetPos;
 
         private const int BaseSize = 128;
+        private Image? _overlayImage = null;
+        private bool _useCustomImage = false;
         public OverlayForm()
         {
             InitializeComponent();
@@ -83,26 +85,31 @@ namespace MybigCursor
         {
             base.OnPaint(e);
 
-            e.Graphics.SmoothingMode = SmoothingMode.AntiAlias;
-            float scaleX = Width / 128f;
-            float scaleY = Height / 128f;
+            e.Graphics.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
 
-            PointF[] arrow =
+            if (_useCustomImage && _overlayImage != null)
             {
-                new PointF(18 * scaleX, 12 * scaleY),
-                new PointF(18 * scaleX, 92 * scaleY),
-                new PointF(36 * scaleX, 72 * scaleY),
-                new PointF(52 * scaleX, 112 * scaleY),
-                new PointF(67 * scaleX, 105 * scaleY),
-                new PointF(50 * scaleX, 67 * scaleY),
-                new PointF(82 * scaleX, 67 * scaleY)
-            };
+                e.Graphics.DrawImage(_overlayImage, 0, 0, Width, Height);
+            }
+            else
+            {
+                Point[] arrow =
+                {
+                    new Point(18, 12),
+                    new Point(18, 92),
+                    new Point(36, 72),
+                    new Point(52, 112),
+                    new Point(67, 105),
+                    new Point(50, 67),
+                    new Point(82, 67)
+                };
 
-            using SolidBrush fillBrush = new SolidBrush(Color.FromArgb(245, Color.White));
-            using Pen outlinePen = new Pen(Color.Black, 3);
+                using SolidBrush fillBrush = new SolidBrush(Color.White);
+                using Pen outlinePen = new Pen(Color.Black, 3);
 
-            e.Graphics.FillPolygon(fillBrush, arrow);
-            e.Graphics.DrawPolygon(outlinePen, arrow);
+                e.Graphics.FillPolygon(fillBrush, arrow);
+                e.Graphics.DrawPolygon(outlinePen, arrow);
+            }
         }
 
         public void ShowAtCursor(Point cursorPos, float intensity)
@@ -117,6 +124,22 @@ namespace MybigCursor
         {
             _targetOpacity = 0f;
             _targetScale = 0.6f;
+        }
+        public void SetOverlayImage(string imagePath)
+        {
+            if (System.IO.File.Exists(imagePath))
+            {
+                _overlayImage?.Dispose();
+                _overlayImage = Image.FromFile(imagePath);
+                _useCustomImage = true;
+                Invalidate();
+            }
+        }
+
+        public void ClearOverlayImage()
+        {
+            _useCustomImage = false;
+            Invalidate();
         }
     }
 }

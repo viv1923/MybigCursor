@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             lblStatus = new Label();
+            btnSettings = new Button();
             SuspendLayout();
             // 
             // lblStatus
@@ -39,13 +40,23 @@
             lblStatus.Size = new Size(66, 20);
             lblStatus.TabIndex = 0;
             lblStatus.Text = "lblStatus";
-            
+            // 
+            // btnSettings
+            // 
+            btnSettings.Location = new Point(101, 100);
+            btnSettings.Name = "btnSettings";
+            btnSettings.Size = new Size(138, 54);
+            btnSettings.TabIndex = 1;
+            btnSettings.Text = "Settings";
+            btnSettings.UseVisualStyleBackColor = true;
+            btnSettings.Click += btnSettings_Click;
             // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(814, 450);
+            Controls.Add(btnSettings);
             Controls.Add(lblStatus);
             Name = "Form1";
             Text = "Form1";
@@ -56,5 +67,6 @@
         #endregion
 
         private Label lblStatus;
+        private Button btnSettings;
     }
 }
