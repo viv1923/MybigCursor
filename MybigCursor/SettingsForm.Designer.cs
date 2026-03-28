@@ -41,6 +41,8 @@
             numericUpDown1 = new NumericUpDown();
             btnSave = new Button();
             btnClose = new Button();
+            label1 = new Label();
+            label2 = new Label();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox3).BeginInit();
@@ -49,7 +51,7 @@
             // 
             // UploadImg1
             // 
-            UploadImg1.Location = new Point(252, 61);
+            UploadImg1.Location = new Point(252, 74);
             UploadImg1.Name = "UploadImg1";
             UploadImg1.Size = new Size(125, 50);
             UploadImg1.TabIndex = 0;
@@ -59,7 +61,7 @@
             // 
             // UploadImg2
             // 
-            UploadImg2.Location = new Point(252, 156);
+            UploadImg2.Location = new Point(252, 177);
             UploadImg2.Name = "UploadImg2";
             UploadImg2.Size = new Size(125, 45);
             UploadImg2.TabIndex = 1;
@@ -69,7 +71,7 @@
             // 
             // UploadImg3
             // 
-            UploadImg3.Location = new Point(252, 249);
+            UploadImg3.Location = new Point(252, 278);
             UploadImg3.Name = "UploadImg3";
             UploadImg3.Size = new Size(125, 44);
             UploadImg3.TabIndex = 2;
@@ -79,7 +81,7 @@
             // 
             // pictureBox1
             // 
-            pictureBox1.Location = new Point(43, 61);
+            pictureBox1.Location = new Point(43, 74);
             pictureBox1.Name = "pictureBox1";
             pictureBox1.Size = new Size(173, 83);
             pictureBox1.TabIndex = 3;
@@ -87,7 +89,7 @@
             // 
             // pictureBox2
             // 
-            pictureBox2.Location = new Point(43, 156);
+            pictureBox2.Location = new Point(43, 177);
             pictureBox2.Name = "pictureBox2";
             pictureBox2.Size = new Size(173, 84);
             pictureBox2.TabIndex = 4;
@@ -95,7 +97,7 @@
             // 
             // pictureBox3
             // 
-            pictureBox3.Location = new Point(43, 249);
+            pictureBox3.Location = new Point(43, 278);
             pictureBox3.Name = "pictureBox3";
             pictureBox3.Size = new Size(173, 86);
             pictureBox3.TabIndex = 5;
@@ -103,7 +105,7 @@
             // 
             // EquipImg1
             // 
-            EquipImg1.Location = new Point(416, 61);
+            EquipImg1.Location = new Point(416, 74);
             EquipImg1.Name = "EquipImg1";
             EquipImg1.Size = new Size(108, 50);
             EquipImg1.TabIndex = 6;
@@ -113,7 +115,7 @@
             // 
             // EquipImg2
             // 
-            EquipImg2.Location = new Point(416, 156);
+            EquipImg2.Location = new Point(416, 177);
             EquipImg2.Name = "EquipImg2";
             EquipImg2.Size = new Size(108, 45);
             EquipImg2.TabIndex = 7;
@@ -123,7 +125,7 @@
             // 
             // EquipImg3
             // 
-            EquipImg3.Location = new Point(416, 249);
+            EquipImg3.Location = new Point(416, 278);
             EquipImg3.Name = "EquipImg3";
             EquipImg3.Size = new Size(108, 44);
             EquipImg3.TabIndex = 8;
@@ -143,7 +145,7 @@
             // 
             // numericUpDown1
             // 
-            numericUpDown1.Location = new Point(43, 12);
+            numericUpDown1.Location = new Point(43, 25);
             numericUpDown1.Name = "numericUpDown1";
             numericUpDown1.Size = new Size(419, 27);
             numericUpDown1.TabIndex = 10;
@@ -167,11 +169,31 @@
             btnClose.Text = "Close";
             btnClose.UseVisualStyleBackColor = true;
             // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Location = new Point(45, 2);
+            label1.Name = "label1";
+            label1.Size = new Size(115, 20);
+            label1.TabIndex = 13;
+            label1.Text = "Speed of Cursor";
+            // 
+            // label2
+            // 
+            label2.AutoSize = true;
+            label2.Location = new Point(166, 2);
+            label2.Name = "label2";
+            label2.Size = new Size(79, 20);
+            label2.TabIndex = 14;
+            label2.Text = "(Pixel/Sec)";
+            // 
             // SettingsForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(label2);
+            Controls.Add(label1);
             Controls.Add(btnClose);
             Controls.Add(btnSave);
             Controls.Add(numericUpDown1);
@@ -193,6 +215,7 @@
             ((System.ComponentModel.ISupportInitialize)pictureBox3).EndInit();
             ((System.ComponentModel.ISupportInitialize)numericUpDown1).EndInit();
             ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
@@ -210,5 +233,7 @@
         private NumericUpDown numericUpDown1;
         private Button btnSave;
         private Button btnClose;
+        private Label label1;
+        private Label label2;
     }
 }

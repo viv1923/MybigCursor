@@ -104,5 +104,7 @@ namespace MybigCursor
 
             numericUpDown1.Value = (decimal)_settings.ShakeThreshold;
         }
+
+   
     }
 }

@@ -45,9 +45,9 @@
             // 
             btnSettings.Location = new Point(101, 100);
             btnSettings.Name = "btnSettings";
-            btnSettings.Size = new Size(138, 54);
+            btnSettings.Size = new Size(157, 54);
             btnSettings.TabIndex = 1;
-            btnSettings.Text = "Settings";
+            btnSettings.Text = "Customize Settings";
             btnSettings.UseVisualStyleBackColor = true;
             btnSettings.Click += btnSettings_Click;
             // 
