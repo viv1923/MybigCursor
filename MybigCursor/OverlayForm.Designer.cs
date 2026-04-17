@@ -28,16 +28,17 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.SuspendLayout();
+            SuspendLayout();
             // 
             // OverlayForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(128, 128);
-            this.Name = "OverlayForm";
-            this.Text = "OverlayForm";
-            this.ResumeLayout(false);
+            AutoScaleDimensions = new SizeF(8F, 20F);
+            AutoScaleMode = AutoScaleMode.Font;
+            ClientSize = new Size(146, 171);
+            Margin = new Padding(3, 4, 3, 4);
+            Name = "OverlayForm";
+            Text = "OverlayForm";
+            ResumeLayout(false);
         }
 
         #endregion

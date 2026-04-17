@@ -115,9 +115,12 @@ namespace MybigCursor
         public Form1()
         {
             InitializeComponent();
+            _settings = SettingsManager.Load();
 
             _overlay = new OverlayForm();
             _overlay.Hide();
+
+            ApplySettings();
 
             _lastMousePos = Cursor.Position;
             _lastTime = DateTime.Now;
@@ -172,13 +175,12 @@ namespace MybigCursor
             }
 
             lblStatus.Text = _shakeActive
-                ? $"SHAKE DETECTED | Avg speed: {avgSpeed:F0}"
-                : $"Normal | Avg speed: {avgSpeed:F0}";
+                ? $"SHAKE DETECTED | Avg speed: {avgSpeed:F0} px/s | Threshold: {_settings.ShakeThreshold:F0}"
+                : $"Normal | Avg speed: {avgSpeed:F0} px/s | Threshold: {_settings.ShakeThreshold:F0}";
 
-            float intensity = (float)Math.Min(1.0, avgSpeed / 15000.0);
-
+            //float intensity = (float)Math.Min(1.0, avgSpeed / 15000.0);
             if (_shakeActive)
-                _overlay.ShowAtCursor(currentPos, intensity);
+                _overlay.ShowAtCursor(currentPos);
             else
                 _overlay.HideOverlay();
 
@@ -187,7 +189,9 @@ namespace MybigCursor
         }
         private void ApplySettings()
         {
-            if (_settings.UseCustomImage && !string.IsNullOrEmpty(_settings.EquippedImagePath))
+            if (_settings.UseCustomImage &&
+                !string.IsNullOrWhiteSpace(_settings.EquippedImagePath) &&
+                System.IO.File.Exists(_settings.EquippedImagePath))
             {
                 _overlay.SetOverlayImage(_settings.EquippedImagePath);
             }
@@ -198,6 +202,7 @@ namespace MybigCursor
         }
         protected override void OnFormClosing(FormClosingEventArgs e)
         {
+            SettingsManager.Save(_settings);
             _overlay.Close();
             base.OnFormClosing(e);
         }
@@ -208,7 +213,13 @@ namespace MybigCursor
             {
                 frm.ShowDialog();
                 ApplySettings();
+                SettingsManager.Save(_settings);
             }
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

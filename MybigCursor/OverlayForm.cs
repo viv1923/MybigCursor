@@ -19,8 +19,10 @@ namespace MybigCursor
         private PointF _targetPos;
 
         private const int BaseSize = 128;
+
         private Image? _overlayImage = null;
         private bool _useCustomImage = false;
+
         public OverlayForm()
         {
             InitializeComponent();
@@ -42,32 +44,40 @@ namespace MybigCursor
             _animationTimer.Interval = 16; // ~60 FPS
             _animationTimer.Tick += AnimationTimer_Tick;
             _animationTimer.Start();
+
+            SetStyle(ControlStyles.OptimizedDoubleBuffer |
+                     ControlStyles.AllPaintingInWmPaint |
+                     ControlStyles.UserPaint, true);
+            UpdateStyles();
         }
 
         protected override bool ShowWithoutActivation => true;
 
         private void AnimationTimer_Tick(object? sender, EventArgs e)
         {
-            // Smooth opacity
+            // Smooth opacity fade
             _currentOpacity += (_targetOpacity - _currentOpacity) * 0.18f;
 
-            // Smooth scale
+            // Smooth scale animation
             _currentScale += (_targetScale - _currentScale) * 0.18f;
 
-            // Smooth position
+            // Smooth follow movement
             _currentPos.X += (_targetPos.X - _currentPos.X) * 0.25f;
             _currentPos.Y += (_targetPos.Y - _currentPos.Y) * 0.25f;
+
+            int size = (int)(BaseSize * _currentScale);
+            if (size < 1)
+                size = 1;
+
+            Width = size;
+            Height = size;
 
             Left = (int)_currentPos.X;
             Top = (int)_currentPos.Y;
 
             Opacity = Math.Max(0, Math.Min(1, _currentOpacity));
 
-            int size = (int)(BaseSize * _currentScale);
-            Width = size;
-            Height = size;
-
-            // Keep hidden when nearly invisible
+            // Only hide when almost fully faded out
             if (_currentOpacity < 0.02f && _targetOpacity == 0f)
             {
                 if (Visible)
@@ -81,11 +91,12 @@ namespace MybigCursor
 
             Invalidate();
         }
+
         protected override void OnPaint(PaintEventArgs e)
         {
             base.OnPaint(e);
 
-            e.Graphics.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
+            e.Graphics.SmoothingMode = SmoothingMode.AntiAlias;
 
             if (_useCustomImage && _overlayImage != null)
             {
@@ -93,15 +104,18 @@ namespace MybigCursor
             }
             else
             {
-                Point[] arrow =
+                float scaleX = Width / 128f;
+                float scaleY = Height / 128f;
+
+                PointF[] arrow =
                 {
-                    new Point(18, 12),
-                    new Point(18, 92),
-                    new Point(36, 72),
-                    new Point(52, 112),
-                    new Point(67, 105),
-                    new Point(50, 67),
-                    new Point(82, 67)
+                    new PointF(18 * scaleX, 12 * scaleY),
+                    new PointF(18 * scaleX, 92 * scaleY),
+                    new PointF(36 * scaleX, 72 * scaleY),
+                    new PointF(52 * scaleX, 112 * scaleY),
+                    new PointF(67 * scaleX, 105 * scaleY),
+                    new PointF(50 * scaleX, 67 * scaleY),
+                    new PointF(82 * scaleX, 67 * scaleY)
                 };
 
                 using SolidBrush fillBrush = new SolidBrush(Color.White);
@@ -112,34 +126,82 @@ namespace MybigCursor
             }
         }
 
+        // Use this if Form1 is passing intensity
         public void ShowAtCursor(Point cursorPos, float intensity)
         {
-            //_targetPos = new PointF(cursorPos.X + 16, cursorPos.Y + 16);
-            _targetPos = new PointF(cursorPos.X - (Width * 0.2f), cursorPos.Y - (Width * 0.2f));
+            _targetPos = new PointF(
+                cursorPos.X - (Width * 0.2f),
+                cursorPos.Y - (Width * 0.2f)
+            );
 
             _targetOpacity = 1f;
-            _targetScale = 0.8f + (0.4f * intensity); // between 0.8 and 1.2
+            _targetScale = 0.8f + (0.4f * intensity); // 0.8 to 1.2
         }
+
+        // Keep this overload too, in case Form1 is calling ShowAtCursor(currentPos)
+        public void ShowAtCursor(Point cursorPos)
+        {
+            _targetPos = new PointF(
+                cursorPos.X - (Width * 0.2f),
+                cursorPos.Y - (Width * 0.2f)
+            );
+
+            _targetOpacity = 1f;
+            _targetScale = 1f;
+        }
+
         public void HideOverlay()
         {
             _targetOpacity = 0f;
             _targetScale = 0.6f;
         }
+
         public void SetOverlayImage(string imagePath)
         {
-            if (System.IO.File.Exists(imagePath))
+            try
             {
+                if (!System.IO.File.Exists(imagePath))
+                    return;
+
                 _overlayImage?.Dispose();
-                _overlayImage = Image.FromFile(imagePath);
+                _overlayImage = null;
+
+                using (var temp = Image.FromFile(imagePath))
+                {
+                    _overlayImage = new Bitmap(temp);
+                }
+
                 _useCustomImage = true;
                 Invalidate();
+            }
+            catch
+            {
+                _useCustomImage = false;
             }
         }
 
         public void ClearOverlayImage()
         {
             _useCustomImage = false;
+
+            if (_overlayImage != null)
+            {
+                _overlayImage.Dispose();
+                _overlayImage = null;
+            }
+
             Invalidate();
+        }
+
+        protected override void OnFormClosed(FormClosedEventArgs e)
+        {
+            if (_overlayImage != null)
+            {
+                _overlayImage.Dispose();
+                _overlayImage = null;
+            }
+
+            base.OnFormClosed(e);
         }
     }
 }

@@ -43,6 +43,8 @@
             btnClose = new Button();
             label1 = new Label();
             label2 = new Label();
+            lblEquipped = new Label();
+            lblThresholdInfo = new Label();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox3).BeginInit();
@@ -51,7 +53,7 @@
             // 
             // UploadImg1
             // 
-            UploadImg1.Location = new Point(252, 74);
+            UploadImg1.Location = new Point(252, 106);
             UploadImg1.Name = "UploadImg1";
             UploadImg1.Size = new Size(125, 50);
             UploadImg1.TabIndex = 0;
@@ -61,7 +63,7 @@
             // 
             // UploadImg2
             // 
-            UploadImg2.Location = new Point(252, 177);
+            UploadImg2.Location = new Point(252, 230);
             UploadImg2.Name = "UploadImg2";
             UploadImg2.Size = new Size(125, 45);
             UploadImg2.TabIndex = 1;
@@ -71,7 +73,7 @@
             // 
             // UploadImg3
             // 
-            UploadImg3.Location = new Point(252, 278);
+            UploadImg3.Location = new Point(252, 351);
             UploadImg3.Name = "UploadImg3";
             UploadImg3.Size = new Size(125, 44);
             UploadImg3.TabIndex = 2;
@@ -81,31 +83,31 @@
             // 
             // pictureBox1
             // 
-            pictureBox1.Location = new Point(43, 74);
+            pictureBox1.Location = new Point(12, 106);
             pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(173, 83);
+            pictureBox1.Size = new Size(222, 118);
             pictureBox1.TabIndex = 3;
             pictureBox1.TabStop = false;
             // 
             // pictureBox2
             // 
-            pictureBox2.Location = new Point(43, 177);
+            pictureBox2.Location = new Point(12, 230);
             pictureBox2.Name = "pictureBox2";
-            pictureBox2.Size = new Size(173, 84);
+            pictureBox2.Size = new Size(222, 115);
             pictureBox2.TabIndex = 4;
             pictureBox2.TabStop = false;
             // 
             // pictureBox3
             // 
-            pictureBox3.Location = new Point(43, 278);
+            pictureBox3.Location = new Point(12, 351);
             pictureBox3.Name = "pictureBox3";
-            pictureBox3.Size = new Size(173, 86);
+            pictureBox3.Size = new Size(222, 115);
             pictureBox3.TabIndex = 5;
             pictureBox3.TabStop = false;
             // 
             // EquipImg1
             // 
-            EquipImg1.Location = new Point(416, 74);
+            EquipImg1.Location = new Point(416, 134);
             EquipImg1.Name = "EquipImg1";
             EquipImg1.Size = new Size(108, 50);
             EquipImg1.TabIndex = 6;
@@ -115,7 +117,7 @@
             // 
             // EquipImg2
             // 
-            EquipImg2.Location = new Point(416, 177);
+            EquipImg2.Location = new Point(416, 230);
             EquipImg2.Name = "EquipImg2";
             EquipImg2.Size = new Size(108, 45);
             EquipImg2.TabIndex = 7;
@@ -125,7 +127,7 @@
             // 
             // EquipImg3
             // 
-            EquipImg3.Location = new Point(416, 278);
+            EquipImg3.Location = new Point(416, 329);
             EquipImg3.Name = "EquipImg3";
             EquipImg3.Size = new Size(108, 44);
             EquipImg3.TabIndex = 8;
@@ -135,7 +137,7 @@
             // 
             // btnUnequip
             // 
-            btnUnequip.Location = new Point(572, 156);
+            btnUnequip.Location = new Point(587, 230);
             btnUnequip.Name = "btnUnequip";
             btnUnequip.Size = new Size(169, 45);
             btnUnequip.TabIndex = 9;
@@ -145,14 +147,14 @@
             // 
             // numericUpDown1
             // 
-            numericUpDown1.Location = new Point(43, 25);
+            numericUpDown1.Location = new Point(43, 32);
             numericUpDown1.Name = "numericUpDown1";
             numericUpDown1.Size = new Size(419, 27);
             numericUpDown1.TabIndex = 10;
             // 
             // btnSave
             // 
-            btnSave.Location = new Point(509, 379);
+            btnSave.Location = new Point(501, 459);
             btnSave.Name = "btnSave";
             btnSave.Size = new Size(123, 44);
             btnSave.TabIndex = 11;
@@ -162,7 +164,7 @@
             // 
             // btnClose
             // 
-            btnClose.Location = new Point(652, 379);
+            btnClose.Location = new Point(660, 459);
             btnClose.Name = "btnClose";
             btnClose.Size = new Size(116, 44);
             btnClose.TabIndex = 12;
@@ -172,7 +174,7 @@
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(45, 2);
+            label1.Location = new Point(43, 9);
             label1.Name = "label1";
             label1.Size = new Size(115, 20);
             label1.TabIndex = 13;
@@ -181,17 +183,37 @@
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(166, 2);
+            label2.Location = new Point(155, 9);
             label2.Name = "label2";
             label2.Size = new Size(79, 20);
             label2.TabIndex = 14;
             label2.Text = "(Pixel/Sec)";
             // 
+            // lblEquipped
+            // 
+            lblEquipped.AutoSize = true;
+            lblEquipped.Location = new Point(611, 39);
+            lblEquipped.Name = "lblEquipped";
+            lblEquipped.Size = new Size(90, 20);
+            lblEquipped.TabIndex = 15;
+            lblEquipped.Text = "lblEquipped";
+            // 
+            // lblThresholdInfo
+            // 
+            lblThresholdInfo.AutoSize = true;
+            lblThresholdInfo.Location = new Point(43, 73);
+            lblThresholdInfo.Name = "lblThresholdInfo";
+            lblThresholdInfo.Size = new Size(117, 20);
+            lblThresholdInfo.TabIndex = 16;
+            lblThresholdInfo.Text = "lblThresholdInfo";
+            // 
             // SettingsForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 450);
+            ClientSize = new Size(800, 528);
+            Controls.Add(lblThresholdInfo);
+            Controls.Add(lblEquipped);
             Controls.Add(label2);
             Controls.Add(label1);
             Controls.Add(btnClose);
@@ -235,5 +257,7 @@
         private Button btnClose;
         private Label label1;
         private Label label2;
+        private Label lblEquipped;
+        private Label lblThresholdInfo;
     }
 }
